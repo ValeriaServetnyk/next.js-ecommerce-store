@@ -1,6 +1,21 @@
-import { productsDatabase } from '../../util/database';
 import Head from 'next/head';
 import Image from 'next/image';
+import { productsDatabase } from '../../util/database';
+import { useState } from 'react';
+
+// counter would be applied to every product page hence it goes here and then read after return
+function Counter() {
+  const [count, setCount] = useState(1);
+  return (
+    <>
+    <button onClick={() => setCount(count + 1)}>+</button>
+    {count}
+    <button onClick={() => setCount(count - 1)}>-</button>
+    </>
+  )
+}
+
+// every product page is here. First goes an error message if such product id doesn`t exist
 
 export default function Products(props) {
  if(!props.product) {
@@ -23,10 +38,13 @@ export default function Products(props) {
       <h1>{props.product.name}</h1>
       <div>
         <div><div>
-          <Image src={`/${props.product.id}.jpg`} width="400" height="300" />
+          {console.log(props.product.id)}
+          <Image src={`/${props.product.id}.jpg`} width="400" height="300" alt="catme" />
     </div>
     <div>{props.product.description}</div>
     <div>{props.product.price}</div>
+<Counter />
+<button>Add to cart</button>
     </div>
     </div>
     </div>
@@ -35,6 +53,7 @@ export default function Products(props) {
     )
 }
 
+// retrieves the data from the server aka database
 export function getServerSideProps(context) {
 
   const foundProduct = productsDatabase.find((product) => {

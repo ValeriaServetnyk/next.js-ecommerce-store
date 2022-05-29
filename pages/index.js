@@ -1,7 +1,7 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import Link from 'next/link';
 import { css } from '@emotion/react';
+import Head from 'next/head';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const heroImageStyles = css`
 margin: 10px 0px 0px 10px;
@@ -42,9 +42,9 @@ export default function Home() {
         </div>
         <div>
           <ul>
-            <li><Image src="/bread-cat.jpg" alt="cat in bread" width="400" height="300" /></li>
-            <li><Image src="/kitties.jpg" alt="cat in bread" width="400" height="300" /></li>
-            <li><Image src="/paper-cats.jpg" alt="cat in bread" width="400" height="300" /></li>
+            <li><Image src="/1.jpg" alt="cat in bread" width="400" height="300" /></li>
+            <li><Image src="/2.jpg" alt="cat in bread" width="400" height="300" /></li>
+            <li><Image src="/3.jpg" alt="cat in bread" width="400" height="300" /></li>
             </ul>
           </div>
       </main>
