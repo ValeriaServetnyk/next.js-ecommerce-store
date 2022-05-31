@@ -2,6 +2,7 @@ import Head from 'next/head';
 import { css } from '@emotion/react';
 import { productsDatabase } from '../util/database';
 import Link from 'next/link';
+import Image from 'next/image';
 
 
 const productsListStyles = css`
@@ -20,6 +21,16 @@ padding: 12px 16px ;
 
 
 export default function Products(props) {
+
+async function handlePurchase () {
+  const response = await fetch("/api/session",
+   {
+    method: 'POST',
+  });
+  const data = await response.json();
+  console.log(data);
+};
+
   return (
     <div>
       <Head>
@@ -37,6 +48,7 @@ export default function Products(props) {
       <div>
         Name: <Link href={`/products/${product.id}`}>{product.name}</Link></div>
       <div>Price: {product.price}</div>
+      <button onClick={() => handlePurchase()}>Buy now</button>
       </div>
       );
 

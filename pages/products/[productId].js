@@ -15,7 +15,7 @@ function Counter() {
   )
 }
 
-// every product page is here. First goes an error message if such product id doesn`t exist
+// every product page is here. First goes an error message if such product id doesn`t exist. Make sure pics id correspond to the item id
 
 export default function Products(props) {
  if(!props.product) {
@@ -39,7 +39,7 @@ export default function Products(props) {
       <div>
         <div><div>
           {console.log(props.product.id)}
-          <Image src={`/${props.product.id}.jpg`} width="400" height="300" alt="catme" />
+          <Image src={`/${props.product.id}.jpg`} width="300" height="300" alt="catme" />
     </div>
     <div>{props.product.description}</div>
     <div>{props.product.price}</div>
@@ -53,7 +53,7 @@ export default function Products(props) {
     )
 }
 
-// retrieves the data from the server aka database
+// retrieves the data from the server aka database. Only use in pages
 export function getServerSideProps(context) {
 
   const foundProduct = productsDatabase.find((product) => {

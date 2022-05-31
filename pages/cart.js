@@ -2,18 +2,18 @@ import Head from 'next/head';
 
 
 
-export default function About() {
+export default function Cart() {
   return (
   <div>
       <Head>
-        <title>Home page</title>
-        <meta name="description" content="About the app" />
+        <title>Cart</title>
+        <meta name="cart" content="Products cart" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
         <h1>
-          About the shop
+          Products
         </h1>
       </main>
     </div>
