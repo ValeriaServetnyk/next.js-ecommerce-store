@@ -6,17 +6,26 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "migrate": "dotenv ley"
   },
   "dependencies": {
     "@emotion/react": "^11.9.0",
+    "@types/dotenv-safe": "^8.1.2",
+    "dotenv-cli": "^5.1.0",
+    "dotenv-safe": "^8.2.0",
+    "js-cookie": "^3.0.1",
     "next": "12.1.6",
+    "postgres": "^3.2.4",
     "react": "18.1.0",
     "react-dom": "18.1.0",
-    "sharp": "^0.30.5"
+    "sharp": "^0.30.5",
+    "stripe": "^9.6.0"
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.2",
     "eslint": "8.16.0",
-    "eslint-config-next": "12.1.6"
+    "eslint-config-next": "12.1.6",
+    "ley": "^0.7.1"
   }
 }

@@ -1,10 +1,8 @@
 import { css } from '@emotion/react';
 
-
 const footerStyles = css`
 padding: 8px 14px;
-background: #7d7d7d;
-border-radius: 5px;
+background:  #7d7d7d;
 display: flex;
 justify-content: center;
 `;

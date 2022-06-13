@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const topHeaderStyles = css`
 background: #6e73a1;
@@ -20,7 +20,7 @@ font-family: Roboto;
 `;
 
 const topLoginStyles = css`
-  text-decoration: none;
+
   list-style: none;
   display: flex;
 
@@ -30,6 +30,10 @@ color: #ffff;
 font-family: Roboto;
 text-decoration: none;
 padding: 15px;
+
+:hover {
+  color: #76cccb;
+}
   }
   `;
 
@@ -48,7 +52,7 @@ const bottomMenuStyles = css`
 list-style: none;
 display: flex;
 align-items: center;
-margin: 20px 0 20px 460px;
+margin: 20px 0 20px 410px;
 
 
 >li {
@@ -57,34 +61,42 @@ color: #ffff;
 font-family: Roboto;
 text-decoration: none;
 padding: 15px;
-}
+text-transform: uppercase;
+
+:hover {
+  color: #76cccb;
+}}
 `;
 
 const catLogoStyles = css`
-margin: 30px 0 20px 600px;
+text-align: center;
+padding: 40px 0px 40px 0px;
 `;
 
 
 const cartStyles = css`
-font-size: 15px;
-color: #ffff;
-font-family: Roboto;
-text-decoration: none;
 padding: 15px;
 margin-right: 200px;
-color: #252525;
+
+:hover {
+  width: 20px,
+}
+
 `;
 
 export default function Header() {
   return (
     <header>
-      <div css={topHeaderStyles}>
+    <div css={topHeaderStyles}>
       <h1>Expect 2-3 week delivery</h1>
+
     <ul css={topLoginStyles}>
-  <li><Link href="/home">Login</Link></li>
-  <li><Link href="/about">Register</Link></li>
-  </ul>
+        <li>
+          <Link href="/home">Login</Link>
+          </li>
+    </ul>
 </div>
+
 <div css={catLogoStyles}>
   <div>
           <Image src="/catlogo.jpg" alt="shop logo" width="140" height="140"/>
@@ -92,16 +104,25 @@ export default function Header() {
           </div>
   <div css={bottomHeaderStyles}>
         <div>
-          <ul css={bottomMenuStyles}>
-       <li><Link href="/home">Home</Link></li>
-        <li><Link href="/products">Best sellers</Link></li>
-        <li><Link href="/">Accessories</Link></li>
+      <ul css={bottomMenuStyles}>
+       <li>
+         <Link href="/home">Home</Link>
+       </li>
+        <li>
+          <Link href="/products">Best sellers</Link>
+          </li>
+        <li>
+          <Link href="/">Accessories</Link>
+          </li>
         </ul>
         </div>
+
         <div css={cartStyles}>
-  <Link href="/cart">Cart</Link>
+  <Link href="/cart"><Image src="/bag.png" alt="cart icon" width="18" height="18" /></Link>
   </div>
+
   </div>
+
   </header>
 
 
