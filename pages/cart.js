@@ -1,13 +1,32 @@
-// import { css } from '@emotion/react';
+import { css } from '@emotion/react';
 // import Cookies from 'js-cookie';
 import Cookies from 'js-cookie';
 import Head from 'next/head';
 import Image from 'next/image';
-// import Link from 'next/link';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { getParsedCookie, setStringifiedCookie } from '../util/cookies';
 //  import { Counter } from '../components/Counter';
 import { getProducts } from '../util/database';
+
+const buttonStyles =css`
+padding: 10px 30px 10px 30px;
+background-color: #6e73a1;
+border-radius: 10px;
+border: none;
+color: white;
+`;
+
+const pageTitle = css`
+font-size: 32px;
+color: #333333;
+font-weight: 400;
+text-align: center;
+padding: 40px 0px 40px 0px;
+font-family: Roboto;
+text-transform: uppercase;
+
+`;
 
 export default function Cart(props) {
  const [cartItems, setCartItems] = useState(props.foundGoods);
@@ -81,25 +100,25 @@ const [itemCount, setItemCount] = useState(0);
       </Head>
 
       <main>
-        <h1>
+        <h1 css={pageTitle}>
           Your cart
        </h1>
 
 
 {isEmpty ? <h2>your cart is empty</h2> : (
 <>
-<div>
+<div data-test-id="cart-product-<product id>">
 {cartItems.map((item) => {
   return (
     <div key={`cart-${item.id}`}>
 <div>Name {item.name}</div>
  <div><Image src={`/${item.id}.jpg`} width="100" height="100" alt="catme" /></div>
  <div>Price {item.price}</div>
- <div>Quantity {item.quantity}</div>
+ <div data-test-id="cart-product-quantity-<product id>">Quantity {item.quantity}</div>
 
  <div>
 
-<button onClick={() => {
+<button css={buttonStyles} onClick={() => {
 const cartQuantity = item.quantity > 1 ? item.quantity -1 : 1;
 const updatedArray = cartItems.map((p) => p.id === item.id ?
 {...p, quantity: cartQuantity} : p,);
@@ -113,7 +132,7 @@ setStringifiedCookie('cart', currentCart);
 -
 </button>
 <span>{item.quantity}</span>
-<button onClick={() => {
+<button css={buttonStyles} onClick={() => {
   const cartQuantity = item.quantity + 1;
   const updatedArray = cartItems.map((p) => p.id === item.id ?
   {...p, quantity: cartQuantity} : p,);
@@ -127,7 +146,8 @@ setStringifiedCookie('cart', currentCart);
 </button>
 </div>
 <div>
-<button onClick={() => {
+<button css={buttonStyles} data-test-id="cart-product-remove-<product id>"
+ onClick={() => {
   item.quantity = 0;
   const updatedArray = cartItems.filter( (i) => i.quantity !== 0,);
   setCartItems(updatedArray);
@@ -137,7 +157,7 @@ setStringifiedCookie('cart', currentCart);
   const updatedCart = currentCart.filter((p) => p.quantity !==0,);
   setStringifiedCookie('cart', updatedCart);
 }}>
-x
+Remove
 </button>
 </div>
     </div>
@@ -148,8 +168,10 @@ x
 
 <span>Total Items: {itemCount}</span>
 
-<div>Total: {total}</div>
-
+<div data-test-id="cart-total">Total Price: {total}</div>
+<div data-test-id="cart-checkout">
+<button> <Link href="/checkout">Checkout</Link></button>
+</div>
 </div>
 </>
 

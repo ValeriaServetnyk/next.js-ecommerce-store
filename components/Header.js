@@ -109,16 +109,16 @@ export default function Header() {
          <Link href="/home">Home</Link>
        </li>
         <li>
-          <Link href="/products">Best sellers</Link>
+          <Link data-test-id="products-link" href="/products">Best sellers</Link>
           </li>
         <li>
-          <Link href="/">Accessories</Link>
+          <Link href="/accessories">Accessories</Link>
           </li>
         </ul>
         </div>
 
         <div css={cartStyles}>
-  <Link href="/cart"><Image src="/bag.png" alt="cart icon" width="18" height="18" /></Link>
+  <Link data-test-id="cart-link" href="/cart"><Image src="/bag.png" alt="cart icon" width="18" height="18" /></Link>
   </div>
 
   </div>

@@ -94,13 +94,13 @@ export default function Products(props: Props) {
 
     <div css={productInfoContainer}>
           <div>
-            <Image src={`/${props.product.id}.jpg`} width="600" height="600" alt="catme" />
+            <Image data-test-id="product-image" src={`/${props.product.id}.jpg`} width="600" height="600" alt="catme" />
             </div>
 
           <div css={productDescription}>
           <h1>{props.product.name}</h1>
           <p>{props.product.description}</p>
-    <h2>{props.product.price}</h2>
+    <h2 data-test-id="product-price">{props.product.price}</h2>
 <div>
 
  <button onClick={() => {
@@ -109,7 +109,7 @@ export default function Products(props: Props) {
    }
  }}> -
    </button>
-   <span>{counter}</span>
+   <span data-test-id="product-quantity">{counter}</span>
   <button onClick={() => {
     setCounter (counter+1);
   }}>
@@ -176,7 +176,7 @@ setCounter(0)
 // set cookie to the new value
   setStringifiedCookie('cart', newCart);
   }}>{inCart ? 'Remove from cart' : 'Add to cart'}</button> */}
-<button onClick={() => {
+<button data-test-id="product-add-to-cart" onClick={() => {
   const currentCart =Cookies.get('cart') ? getParsedCookie('cart')
   : [];
   let newCart: any;
