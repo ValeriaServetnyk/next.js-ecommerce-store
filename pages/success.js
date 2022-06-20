@@ -14,6 +14,11 @@ text-transform: uppercase;
 
 `;
 
+const successPic = css`
+text-align: center;
+
+`;
+
 export default function Checkout() {
   return (
 <div>
@@ -27,8 +32,10 @@ export default function Checkout() {
         <h1 css={pageTitle}>
           Purrrfect order is completed!
        </h1>
-       <div>
-          <Image src="/success.jpg" alt="success picture cats" width="400" height="500"/>
+       <div css={successPic}>
+         <div>
+          <Image src="/success.jpg" alt="success picture cats" width="300" height="400"/>
+          </div>
 </div>
        </main>
        </div>

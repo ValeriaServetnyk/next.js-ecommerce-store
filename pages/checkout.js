@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 // import Cookies from 'js-cookie';
 import Head from 'next/head';
 // import Image from 'next/image';
-// import Link from 'next/link';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { deleteCookie } from '../util/cookies';
 import { getProducts } from '../util/database';
@@ -16,6 +16,24 @@ padding: 40px 0px 40px 0px;
 font-family: Roboto;
 text-transform: uppercase;
 
+`;
+
+const inputStyles = css`
+display: grid;
+grid-template-columns: repeat(3, 400px);
+align-items: center;
+justify-content: center;
+h2{
+  font-family: Roboto;
+  font-size: 20px;
+}
+`;
+
+const confirmButton = css`
+  background-color: #6e73a1;
+  border: none;
+color: white;
+padding: 15px;
 `;
 export default function Checkout(props) {
   const shoppingData = props.foundGoods;
@@ -70,8 +88,10 @@ export default function Checkout(props) {
         <h1 css={pageTitle}>
           A tiny little step to receive your catcredible goods
         </h1>
-        <form>
+        <form css={inputStyles}>
+          <div>
         <h2>Personal information</h2>
+        <br />
         <input
                   data-test-id="checkout-first-name"
                   placeholder="First name"
@@ -79,6 +99,7 @@ export default function Checkout(props) {
                   onChange={formSetup('firstName')}
                   required
                 />
+                <br />
                 <input
                   data-test-id="checkout-last-name"
                   placeholder="Last name"
@@ -86,6 +107,7 @@ export default function Checkout(props) {
                   onChange={formSetup('lastName')}
                   required
                 />
+                <br />
                 <input
                   data-test-id="checkout-email"
                   placeholder="Email"
@@ -93,7 +115,10 @@ export default function Checkout(props) {
                   onChange={formSetup('email')}
                   required
                 />
+                </div>
+                <div>
         <h2>Shipping Address</h2>
+        <br />
         <input
                   data-test-id="checkout-address"
                   placeholder="Address"
@@ -101,6 +126,7 @@ export default function Checkout(props) {
                   onChange={formSetup('address')}
                   required
                 />
+                <br />
                 <input
                   data-test-id="checkout-city"
                   placeholder="City"
@@ -108,6 +134,7 @@ export default function Checkout(props) {
                   onChange={formSetup('city')}
                   required
                 />
+                <br />
                 <input
                   data-test-id="checkout-postal-code"
                   placeholder="Postal code"
@@ -115,6 +142,7 @@ export default function Checkout(props) {
                   onChange={formSetup('postalCode')}
                   required
                 />
+                <br />
                 <input
                   data-test-id="checkout-country"
                   placeholder="Country"
@@ -122,7 +150,12 @@ export default function Checkout(props) {
                   onChange={formSetup('country')}
                   required
                 />
+
+                <br />
+                </div>
+                <div>
         <h2>Payment information</h2>
+        <br />
         <input
                   data-test-id="checkout-credit-card"
                   placeholder="Credit card"
@@ -130,6 +163,7 @@ export default function Checkout(props) {
                   onChange={formSetup('creditCard')}
                   required
                 />
+                <br />
                 <input
                   data-test-id="checkout-expiration-date"
                   placeholder="Expiration date"
@@ -138,6 +172,7 @@ export default function Checkout(props) {
                   type="number"
                   required
                 />
+                <br />
               <input
                 data-test-id="checkout-security-code"
                 placeholder="Security code"
@@ -146,9 +181,11 @@ export default function Checkout(props) {
                 type="number"
                 required
               />
+              <br />
+              </div>
               <div>
-                <button data-test-id="checkout-confirm-order">
-                  Confirm order
+                <button css={confirmButton} data-test-id="checkout-confirm-order">
+                <Link href="/success">Confirm order</Link>
                 </button>
               </div>
         </form>

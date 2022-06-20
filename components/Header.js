@@ -84,7 +84,16 @@ margin-right: 200px;
 
 `;
 
-export default function Header() {
+export default function Header(props) {
+
+  const removeCartNumber = props.cartQ;
+
+  let totalQ = 0;
+  for (let i = 0; i < removeCartNumber.length; i++) {
+    totalQ += removeCartNumber[i].quantity;
+  }
+
+
   return (
     <header>
     <div css={topHeaderStyles}>
@@ -119,6 +128,7 @@ export default function Header() {
 
         <div css={cartStyles}>
   <Link data-test-id="cart-link" href="/cart"><Image src="/bag.png" alt="cart icon" width="18" height="18" /></Link>
+  {props.cartQ}
   </div>
 
   </div>
