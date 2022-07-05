@@ -8,151 +8,139 @@ import { getProducts } from '../util/database';
 
 // import { loadStripe } from '@stripe/stripe-js';
 
-
-
-
-
-
-
 const productsListStyles = css`
-display: grid;
-grid-template-columns: repeat(4, 250px);
-gap: 40px;
-padding: 40px;
-
-
+  display: grid;
+  grid-template-columns: repeat(4, 250px);
+  gap: 40px;
+  padding: 40px;
 `;
 
 const pageTitle = css`
-font-size: 32px;
-color: #333333;
-font-weight: 400;
-text-align: center;
-padding: 40px 0px 40px 0px;
-font-family: Roboto;
-text-transform: uppercase;
-
+  font-size: 32px;
+  color: #333333;
+  font-weight: 400;
+  text-align: center;
+  padding: 40px 0px 40px 0px;
+  font-family: Roboto;
+  text-transform: uppercase;
 `;
 
 const productName = css`
-text-decoration: none;
-color: black;
-font-family: Roboto;
-font-weight: 400;
-font-size: 18px;
-text-align: center;
-padding: 10px;
-
-
+  text-decoration: none;
+  color: black;
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 18px;
+  text-align: center;
+  padding: 10px;
 `;
 
 const productPrice = css`
-color: black;
-font-family: Roboto;
-font-weight: 400;
-font-size: 18px;
-text-align: center;
-padding: 10px;
+  color: black;
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 18px;
+  text-align: center;
+  padding: 10px;
 `;
 
 const quickBuyButton = css`
-padding: 10px;
-background-color: #6e73a1;
-border-radius: 10px;
-border: none;
-color: white;
+  padding: 10px;
+  background-color: #6e73a1;
+  border-radius: 10px;
+  border: none;
+  color: white;
 `;
 
 const counterContainer = css`
-display: flex;
-justify-content: center;
-gap: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
 `;
 export default function Products(props) {
-// const stripeLoader = loadStripe(props.publicKey);
-// console.log(props);
+  // const stripeLoader = loadStripe(props.publicKey);
+  // console.log(props);
 
-const [productQuantity, setProductQuantity] = useState(1);
+  const [productQuantity, setProductQuantity] = useState(1);
 
-async function handlePurchase (quantity, mode, priceId) {
+  async function handlePurchase(quantity, mode, priceId) {
+    // const stripeClient = await stripeLoader;
 
-  // const stripeClient = await stripeLoader;
+    const response = await fetch('/api/session', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        quantity: quantity,
+        mode: mode,
+        priceId: priceId,
+      }),
+    });
+    const data = await response.json();
 
-  const response = await fetch("/api/session",
-   {
-    method: 'POST',
-    headers: {
-'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      quantity: quantity,
-      mode: mode,
-      priceId: priceId,
-    })
-  });
-  const data = await response.json();
-
-
-  // stripeClient.redirectToCheckout({sessionId: data.session.id});
-}
+    // stripeClient.redirectToCheckout({sessionId: data.session.id});
+  }
 
   return (
     <div>
       <Head>
         <title>Products</title>
-        <meta name="plenty of cat-themed gifts" content="Dashboard for the application" />
+        <meta
+          name="plenty of cat-themed gifts"
+          content="Dashboard for the application"
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <h1 css={pageTitle}>Best Selling</h1>
 
-<div css={productsListStyles}>
-   {/* <div>
-    <ul>
-      <li>Gift for cat lovers</li>
-      <li>Cat clothes for humans</li>
-      <li>Cat sweatshirt collection</li>
-      <li>Cat accessories for humans</li>
-      <li>Cat home decor</li>
-      <li>Cat lady collection</li>
-    </ul>
-  </div> */}
+      <div css={productsListStyles}>
+        {props.products.map((product) => {
+          return (
+            <div
+              key={`product-${product.id}`}
+              data-test-id="product-<product id>"
+            >
+              <div>
+                <Image
+                  src={`/${product.id}.jpg`}
+                  width="300"
+                  height="300"
+                  alt="product images"
+                />
+              </div>
+              <div css={productName}>
+                <Link href={`/products/${product.id}`}>{product.name}</Link>
+              </div>
+              <div css={productPrice}>{product.price}</div>
+              <div css={counterContainer}>
+                <Counter />
+                <button
+                  css={quickBuyButton}
+                  onClick={() => handlePurchase(productQuantity, 'payment')}
+                >
+                  Quick Buy
+                </button>
+              </div>
 
-  {props.products.map((product) => {
-
-    return (
-      <div key={`product-${product.id}`}>
-
-        <div><Image src={`/${product.id}.jpg`} width="300" height="300" alt="product images" />
-        </div>
-<div css={productName}>
-  <Link  data-test-id="product-<product id>" href={`/products/${product.id}`}>{product.name}</Link>
-  </div>
-<div css={productPrice}>{product.price}</div>
-<div css={counterContainer}>
- <Counter />
-<button css={quickBuyButton} onClick={() => handlePurchase(productQuantity, 'payment' )}>Quick Buy</button>
-</div>
-
-<hr />
-</div>
-);
-  })}
-  </div>
-  </div>
-
-  )
+              <hr />
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
 }
-
 
 export async function getServerSideProps() {
   const products = await getProducts();
 
   return {
     props: {
-products: products,
+      products: products,
     },
-    };
+  };
 }
 
 // export async function getServerSideProps() {

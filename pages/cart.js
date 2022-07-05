@@ -101,7 +101,7 @@ export default function Cart(props) {
     <div>
       <Head>
         <title>Shopping cart</title>
-        <meta name="checkout page" content="goods ready for checkout" />
+        <meta name="shopping cart" content="goods ready for checkout" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -210,8 +210,12 @@ export default function Cart(props) {
               <br />
               <div data-test-id="cart-total">Total Price: {total}</div>
               <br />
-              <div data-test-id="cart-checkout">
-                <button css={checkoutButton}>
+              <div>
+                <button
+                  href="/checkout"
+                  css={checkoutButton}
+                  data-test-id="cart-checkout"
+                >
                   <Link href="/checkout">Checkout</Link>
                 </button>
               </div>
