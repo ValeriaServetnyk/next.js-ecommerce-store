@@ -1,13 +1,25 @@
 import { config } from 'dotenv-safe';
 import postgres from 'postgres';
+import setPostgresDefaultsOnHeroku from './setPostgresDefaultsOnHeroku';
+
+setPostgresDefaultsOnHeroku();
 
 config();
 
+declare module globalThis {
+  let postgresSqlClient: ReturnType<typeof postgres> | undefined;
+}
+
 function connectOneTimeToDatabase() {
-  if (!globalThis.postgreSqlClient) {
-    globalThis.postgresSqlClient = postgres();
+  let sql;
+  if (process.env.NODE_ENV === 'production' && process.env.DATABASE_URL) {
+    sql = postgres({ ssl: { rejectUnauthorized: false } });
+  } else {
+    if (!globalThis.postgresSqlClient) {
+      globalThis.postgresSqlClient = postgres();
+    }
+    sql = globalThis.postgresSqlClient;
   }
-  const sql = globalThis.postgresSqlClient;
 
   return sql;
 }
