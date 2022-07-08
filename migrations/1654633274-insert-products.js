@@ -1,5 +1,5 @@
 exports.up = async (sql) => {
-	await sql `
+  await sql`
 INSERT INTO products
  (name, price, description)
 VALUES
@@ -13,10 +13,9 @@ VALUES
  ('Cat Face Jeans','12','Check out these awesome high-waisted stonewashed cat face jeans! The ultimate in vintage hipster wear, these will be the envy of everyone.');
 
 	`;
-
 };
 
 exports.down = async (sql) => {
-	await sql`
+  await sql`
 	DROP TABLE products`;
 };

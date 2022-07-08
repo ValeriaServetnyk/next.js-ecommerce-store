@@ -4,6 +4,6 @@ const nextConfig = {
   experimental: {
     emotion: true,
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

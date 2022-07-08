@@ -6,9 +6,9 @@ exports.up = async (sql) => {
   price varchar(30) NOT NULL,
 	description varchar(600) NOT NULL
 )`;
-}
+};
 
 exports.down = async (sql) => {
-	await sql`
+  await sql`
 	DROP TABLE products`;
 };

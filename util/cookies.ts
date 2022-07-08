@@ -1,20 +1,18 @@
 import Cookies from 'js-cookie';
 import { ProductInCart } from '../pages/products/[productId]';
 
-export function getParsedCookie(key:string) {
-  const cookieValue =Cookies.get(key);
+export function getParsedCookie(key: string) {
+  const cookieValue = Cookies.get(key);
 
   if (!cookieValue) {
     return undefined;
   }
   try {
     return JSON.parse(cookieValue);
-  }
-  catch (err) {
+  } catch (err) {
     return undefined;
   }
 }
-
 
 export function setStringifiedCookie(key: string, value: ProductInCart[]) {
   Cookies.set(key, JSON.stringify(value));
