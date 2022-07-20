@@ -72,7 +72,9 @@ const catLogoStyles = css`
 
 const cartStyles = css`
   padding: 15px;
-  margin-right: 200px;
+  display: flex;
+  align-items: center;
+  gap: 50px;
 `;
 
 export default function Header(props) {

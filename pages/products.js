@@ -143,6 +143,8 @@ export async function getServerSideProps() {
   };
 }
 
+// to add stripe later use this code
+
 // export async function getServerSideProps() {
 //   const stripe = await import ('stripe');
 //   const stripeServer = stripe.default(process.env.STRIPE_SECRET_KEY);
