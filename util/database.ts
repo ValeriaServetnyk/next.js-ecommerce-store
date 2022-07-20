@@ -2,6 +2,14 @@ import { config } from 'dotenv-safe';
 import postgres from 'postgres';
 import setPostgresDefaultsOnHeroku from './setPostgresDefaultsOnHeroku';
 
+export type Product = {
+  name: string;
+  id: string;
+  description: string;
+  price: string;
+  counter: number;
+};
+
 setPostgresDefaultsOnHeroku();
 
 config();
@@ -33,11 +41,11 @@ SELECT * FROM  products
   return products;
 }
 
-export async function getProduct(id: number) {
+export async function getProductById(id?: number) {
   if (!id) return undefined;
-  const products = await sql`
+  const [product] = await sql<[Product | undefined]>`
   SELECT * FROM  products
   WHERE id = ${id}
   `;
-  return products[0];
+  return product;
 }

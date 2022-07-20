@@ -1,12 +1,9 @@
 import { css } from '@emotion/react';
-// import Cookies from 'js-cookie';
-import Cookies from 'js-cookie';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { getParsedCookie, setStringifiedCookie } from '../util/cookies';
-//  import { Counter } from '../components/Counter';
 import { getProducts } from '../util/database';
 
 const buttonContainer = css`
@@ -232,7 +229,7 @@ export async function getServerSideProps(context) {
 
   const productDatabase = await getProducts();
 
-  let foundGoods = [];
+  const foundGoods = [];
 
   for (const productInCart of currentCart) {
     const productData = productDatabase.find((product) => {

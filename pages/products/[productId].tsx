@@ -5,7 +5,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { useState } from 'react';
 import { getParsedCookie, setStringifiedCookie } from '../../util/cookies';
-import { getProduct } from '../../util/database';
+import { getProductById } from '../../util/database';
 import { queryParamToNumber } from '../../util/queryParams';
 
 // every product page is here. First goes an error message if such product id does not exist. Make sure pics id correspond to the item id
@@ -73,32 +73,19 @@ type NewCart = {
 }[];
 
 export default function Products(props: Props) {
-  // check if the product is in cart by checking the counter. If the counter is present then is in cart
-  const [inCart, setInCart] = useState('counter' in props.product);
+  // check if the product is in cart by checking the counter. If the counter is present then is in cart. Leave for later
+  // const [inCart, setInCart] = useState('counter' in props.product);
+
   // initialize the counter with the value of the cookie
   const [counter, setCounter] = useState(props.product.counter || 1);
 
-  // if product id is invalid return this
-  if (!props.product) {
-    return (
-      <div>
-        <Head>
-          <title>Product not found</title>
-          <meta
-            name="description"
-            content="Unfortunately this product is currently unavailable"
-          />
-        </Head>
-
-        <h2>Product not found</h2>
-      </div>
-    );
-  }
-
-  // if there is a correct product it
-
   return (
     <div>
+      <Head>
+        <title>Product page</title>
+        <meta name="product page" content="Information about each product" />
+      </Head>
+
       <div css={productInfoContainer}>
         <div>
           <Image
@@ -197,24 +184,25 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   const productId = queryParamToNumber(context.query.productId);
 
-  const product = await getProduct(productId);
+  const product = await getProductById(productId);
 
-  const foundProduct = {
-    id: product.id,
-    name: product.name,
-    price: product.price,
-    description: product.description,
-  };
-
-  if (!foundProduct) {
+  if (!product) {
     context.res.statusCode = 404;
+    return { props: { product: null } };
   }
 
+  // const foundProduct = {
+  //   id: product.id,
+  //   name: product.name,
+  //   price: product.price,
+  //   description: product.description,
+  // };
+
   const currentProductInCart = currentCart.find(
-    (productInCart: ProductInCart) => foundProduct.id === productInCart.id,
+    (productInCart: ProductInCart) => product.id === productInCart.id,
   );
 
-  const superProduct = { ...foundProduct, ...currentProductInCart };
+  const superProduct = { ...product, ...currentProductInCart };
 
   return {
     props: {

@@ -59,7 +59,6 @@ const counterContainer = css`
 `;
 export default function Products(props) {
   // const stripeLoader = loadStripe(props.publicKey);
-  // console.log(props);
 
   const [productQuantity, setProductQuantity] = useState(1);
 

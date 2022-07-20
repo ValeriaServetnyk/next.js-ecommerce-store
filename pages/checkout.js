@@ -1,8 +1,5 @@
 import { css } from '@emotion/react';
-// import Cookies from 'js-cookie';
 import Head from 'next/head';
-// import Image from 'next/image';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { deleteCookie } from '../util/cookies';
 import { getProducts } from '../util/database';
@@ -51,20 +48,20 @@ export default function Checkout(props) {
   });
 
   const formSetup = (name) => {
-    return ({ target: { userInput } }) => {
-      setUserInput((oldInput) => ({ oldInput, [name]: userInput }));
+    return ({ target: { input } }) => {
+      setUserInput((oldInput) => ({ oldInput, [name]: input }));
     };
   };
 
   useEffect(() => {
-    if (shoppingData.length == 0) return;
+    if (shoppingData.length === 0) return;
 
-    const total = shoppingData.reduce((sum, item) => {
+    const totalCost = shoppingData.reduce((sum, item) => {
       sum = sum + item.price * item.quantity;
       return sum;
     }, 0);
 
-    setTotal(total);
+    setTotal(totalCost);
   }, [shoppingData]);
 
   const onSubmit = (event) => {
@@ -199,7 +196,7 @@ export async function getServerSideProps(context) {
 
   const productDatabase = await getProducts();
 
-  let foundGoods = [];
+  const foundGoods = [];
 
   for (const productInCart of currentCart) {
     const productData = productDatabase.find((product) => {
